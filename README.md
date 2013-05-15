@@ -1,4 +1,4 @@
 horoscop
 ========
 
-Astrological packages for (La)TeX: horoscop and starfont
+The horoscop package for typesetting astrological charts in LaTeX
