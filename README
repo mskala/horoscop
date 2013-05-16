@@ -1,0 +1,65 @@
+This is version 0.92 of the horoscop package for typesetting astrological
+charts in LaTeX.
+
+FILES IN THIS PACKAGE
+
+README       - this documentation file
+horoscop.dtx - documentation and style file (to be unpacked by horoscop.ins)
+horoscop.ins - installation driver file
+horoscop.pdf - precompiled documentation
+
+This is a LaTeX package distributed in the traditional dtx/ins format.
+Run TeX on the horoscop.ins file to extract the file horoscop.sty, which is
+the package file used by LaTeX, from the combined code/documentation file
+horoscop.dtx; run LaTeX on horoscop.dtx directly to typeset the
+documentation.
+
+Typesetting the documentation is not trivial; you will need all of
+horoscop's dependencies, and (for really correct results) also two runs of
+makeindex on the "glossary" and "index" files, and an extra run of LaTeX to
+resolve links, *and* you will need to run LaTeX with shell escapes enabled
+and on a system where Swiss Ephemeris is installed and working.  You are
+probably better off to just read the precompiled PDF file.
+
+DEPENDENCIES
+
+Typesetting chart wheels requires the pict2e package (i.e. a version of it
+that actually works and is not just a placeholder).  This package seems to
+have been introduced in 2011 - horoscop long predates it but was much more
+annoying to use before the update.  As a result of this dependency, this
+version may not work on some older installations of LaTeX.
+
+Chart *calculation* (i.e. computing the locations of the planets and other
+objects based on a native's time and place of birth) requires running with
+shell escapes enabled (not the default, and somewhat dangerous) and an
+installation of either Swiss Ephemeris (http://www.astro.com/swisseph/) or
+Astrolog (http://www.astrolog.org/astrolog.htm).  Without either of those
+things, it is still possible to typeset charts, but you must do the
+calculations and enter the object positions manually or write your own
+software for it.  Chart calculation with external software has only been
+tested under Linux, but there is no reason it shouldn't work on other
+systems.
+
+Typesetting astrological symbols requires an appropriate font.  The horoscop
+package can work with the marvosym, wasysym, and starfont LaTeX packages,
+with varying quality in the results; starfont is recommended and default. 
+It can also use text-only substitutes if none of those packages are
+available.
+
+Other, less significant, dependencies may exist; consult the PDF manual.
+
+PUBLIC DOMAIN
+
+The horoscop package is public domain.  External calculation software might
+not be; you are responsible for any relevant licensing issues for any other
+software you use.
+
+CONTACT AND LINKS
+
+LaTeX astrology page:  http://ansuz.sooke.bc.ca/entry/107
+GitHub repository:     https://github.com/mskala/horoscop
+Online demo:           http://ansuz.sooke.bc.ca/astrology/makechart.php
+
+Matthew Skala
+mskala@ansuz.sooke.bc.ca
+http://ansuz.sooke.bc.ca/
