@@ -1,6 +1,6 @@
 PATH:=${PATH}:.
 
-default:  horoscop.pdf
+default: horoscop.zip
 
 horoscop.sty: horoscop.ins horoscop.dtx
 	rm -f horoscop.sty
@@ -23,3 +23,10 @@ horoscop.pdf: horoscop.dtx horoscop.sty
 	makeindex -s gglo.ist -o horoscop.gls horoscop.glo
 	makeindex -s gind.ist -o horoscop.ind horoscop.idx
 	pdflatex --shell-escape horoscop.dtx
+
+horoscop.zip: README horoscop.ins horoscop.dtx horoscop.pdf
+	rm -f horoscop.zip
+	mkdir horoscop
+	cp README horoscop.ins horoscop.dtx horoscop.pdf horoscop
+	zip -r horoscop.zip horoscop
+	rm -rf horoscop

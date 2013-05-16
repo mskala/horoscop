@@ -1,6 +1,25 @@
 This is version 0.92 of the horoscop package for typesetting astrological
 charts in LaTeX.
 
+Features include:
+
+  * A unified interface for astrological symbols/glyphs, supporting three
+    different astrological fonts as well as text abbreviations. 
+  * Support for invoking Astrolog or Swiss Ephemeris to calculate charts. 
+    Positions can also be specified manually. 
+  * Loading and saving object and cusp positions into TeX macros. 
+  * Typesetting of angles and positions as text. 
+  * Ready-made templates for basic wheel charts, dial charts including
+    multi-dials with up to four sets of objects, and decorative wheel
+    charts. 
+  * Optional variations of the standard templates:  aspect webs,
+    highlighting for angular cusps, choice of what to include in object
+    labels, and house labels inside the houses. 
+  * Low-level graphics functions for plotting in polar coordinates and
+    building new templates. 
+  * Labels move, and where necessary houses expand, to prevent crowding. 
+  * Smart rounding of angles for display. 
+
 FILES IN THIS PACKAGE
 
 README       - this documentation file
@@ -57,7 +76,7 @@ software you use.
 CONTACT AND LINKS
 
 LaTeX astrology page:  http://ansuz.sooke.bc.ca/entry/107
-GitHub repository:     https://github.com/mskala/horoscop
+GitHub repository:     http://github.com/mskala/horoscop
 Online demo:           http://ansuz.sooke.bc.ca/astrology/makechart.php
 
 Matthew Skala

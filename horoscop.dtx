@@ -22,7 +22,7 @@
 \usepackage{fmtcount}
 \usepackage{graphicx}
 \usepackage[scaled=0.9]{helvet}
-\usepackage[textsym,wasysym,marvosym,starfont]{horoscop}[2008/08/30]
+\usepackage[textsym,wasysym,marvosym,starfont]{horoscop}[2013/05/16]
 \usepackage{mathpazo}
 \usepackage{titlesec}
 \usepackage[letterpaper,breaklinks,bookmarks,plainpages=false,
@@ -81,7 +81,7 @@
 %</driver>
 % \fi
 %
-% \CheckSum{4083}
+% \CheckSum{4087}
 %
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -113,7 +113,7 @@
 %
 % \title{Typesetting astrology with \textsf{horoscop}}
 % \author{Matthew Skala}
-% \date{August 30, 2008}
+% \date{May 16, 2013}
 %
 % \begin{titlepage}
 %    \phantomsection
@@ -140,7 +140,7 @@
 %         {\nolinkurl{mskala@ansuz.sooke.bc.ca}}}
 %
 %    \vspace{0.5in}
-%    {\Large\itshape Version 0.91, August 30, 2008}
+%    {\Large\itshape Version 0.92, May 16, 2013}
 %    \vspace{2.5pc}
 % \end{titlepage}
 %
@@ -216,14 +216,21 @@
 % whatever comes out of the calculation software but it will be your own
 % fault if that is nonsense.
 %
-% This 0.91 release fixes some bugs and addresses some non-bug issues
-% brought up by testers.  A few remain, so there will probably be at least
-% one more beta release before a more final really-usable release happens.
+% This 0.92 release is the first one to be submitted to CTAN.  I still feel
+% like \textsf{horoscop} is beta software, but it has existed since 2004, it
+% has not changed much in years, the recent switch to \textsf{pict2e} makes
+% it a lot more useful with modern \TeX\ installations, and I think the time
+% has come to share it more widely.  Next version will probably be 1.0.
 %
-% This package, the earlier \textsf{starfont} package (which
-% \textsf{horoscop} looks for by default), and other material on typesetting
-% astrology with \LaTeX, are available from
-% \url{http://ansuz.sooke.bc.ca/astrology/astro-latex.php}.
+% This package has a GitHub repository at
+% \url{http://github.com/mskala/horoscop}.  Bug reports should be filed
+% there using GitHub's issue tracking system.
+%
+% There is an online chart service demonstrating \textsf{horoscop} at
+% \url{http://ansuz.sooke.bc.ca/astrology/makechart.php}.  I also maintain a
+% page pointing to recent versions of this, my \textsf{starfont} package,
+% and any other \LaTeX\ astrology resources I can find, at
+% \url{http://ansuz.sooke.bc.ca/entry/107}.
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 %
@@ -239,22 +246,17 @@
 % \textsf{starfont}, and \textsf{wasysym}, none of which are included in a
 % typical default \LaTeX\ installation.  The \textsf{starfont} package is
 % default and recommended, because the others have many symbols either
-% missing or unsuitable.  Although the \textsf{starfont} package itself is
-% in CTAN, it requires a font file not distributed by CTAN but available
-% from the package author's Web page.  Instead of using an astrological font
+% missing or unsuitable.
+% Instead of using an astrological font
 % at all, the |textsym| option may be used to substitute abbreviations
 % written in \LaTeX's ordinary text font.
 %
 % Sources for astrological font packages:
+% \changes{v0.92}{2013/05/16}{Update links for font packages}
 % \begin{itemize}
-% \item \textsf{marvosym}:\\
-%    {\small\url{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=marvosym}}
-% \item \textsf{starfont} (author's Web site):\\
-%    {\small\url{http://ansuz.sooke.bc.ca/astrology/astro-latex.php}}
-% \item \textsf{starfont} (CTAN):\\
-%    {\small\url{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=starfont}}
-% \item \textsf{wasysym}:\\
-%    {\small\url{http://tug.ctan.org/cgi-bin/ctanPackageInformation.py?id=wasysym}}
+% \item \textsf{marvosym}: \url{http://www.ctan.org/pkg/marvosym}
+% \item \textsf{starfont}: \url{http://www.ctan.org/pkg/starfont}
+% \item \textsf{wasysym}: \url{http://www.ctan.org/pkg/wasysym}
 % \end{itemize}
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -295,21 +297,20 @@
 % That is disabled by default, and should not be enabled lightly.  With
 % |\write18| support, \TeX\ documents can execute arbitrary commands on the
 % host computer system, potentially giving them the ability to cause
-% {\Large\bfseries unlimited damage}.  No file containing data from an
-% untrusted source should be run on an interpreter with |\write18| enabled.
-% In particular, readers should be especially wary of using
-% \textsf{horoscop} in automated chart-calculation services.  If you create
-% a Web form for people to enter birth data and automatically generate
-% a \LaTeX\ source file to typeset a chart, then you must carefully sanitize
-% all the user-entered data on the server side.
+% unlimited damage.  No file containing data from an untrusted source should
+% be run on an interpreter with |\write18| enabled.  In particular, readers
+% should be especially wary of using \textsf{horoscop} in automated
+% chart-calculation services.  If you create a Web form for people to enter
+% birth data and automatically generate a \LaTeX\ source file to typeset a
+% chart, then you must carefully sanitize all the user-entered data on the
+% server side.
 %
-% The procedure for enabling
-% |\write18| will vary depending on your \TeX\ installation; for obvious
-% security reasons, it must be done out of band, and cannot be turned on by
-% any commands given in the document.  On a typical installation |\write18|
-% might be enabled by a special command-line option to the \TeX\
-% interpreter.  If you don't know what this stuff means and how to deal with
-% it, then you shouldn't attempt to turn on |\write18|.
+% The procedure for enabling |\write18| will vary depending on your
+% \TeX\ installation; for obvious security reasons, it must be done out of
+% band, and cannot be turned on by any commands given in the document.  On a
+% typical installation |\write18| might be enabled by a special command-line
+% option to the \TeX\ interpreter.  If you don't know what this stuff means
+% and how to deal with it, then you shouldn't attempt to turn on |\write18|.
 %
 % The external calculation programs' shell commands have only been
 % tested under Linux.  They will probably work on any system where the
@@ -835,12 +836,12 @@
 % \DescribeMacro{\horocalclon}|\horocalclon|,
 % and \DescribeMacro{\horocalclat}|\horo|-|calclat|, which should be
 % defined to contain the year, month, day, time, longitude, and latitude
-% respectively.  Each one should be a decimal number, with whole whole numbers only for
-% year and month; |\horocalctime| is the number of hours from midnight (so
-% that a time like 4:30pm would be 16.5); and longitude and latitude are
-% numbers of degrees.  Use positive numbers for North and East and negative
-% for South and West.  Times and dates must be UTC.
-% For example, the birth data for Uri Geller could be entered as follows.
+% respectively.  Each one should be a decimal number, with only whole
+% numbers for year and month; |\horocalctime| is the number of hours from
+% midnight (so that a time like 4:30pm would be 16.5); and longitude and
+% latitude are numbers of degrees.  Use positive numbers for North and East
+% and negative for South and West.  Times and dates must be UTC.  For
+% example, the birth data for Uri Geller could be entered as follows.
 %
 % \begin{verbatim}
 % \renewcommand{\horocalcyear}{1946}
@@ -1557,8 +1558,8 @@
 % saved object position macros created by the |\horosaveobjects| command, as
 % illustrated by the example code.  The first will be used for the inner
 % dial and the second for the outer dial.  An optional argument in square
-% brackets may be added before the required ones (in the standard \LaTeX
-% usage) for a dial of less than 360\horodegrees.
+% brackets may be added before the required ones (in the standard
+% \LaTeX\ usage) for a dial of less than 360\horodegrees.
 %
 % \begin{figure}
 % \horocalcparms{1955}{2}{24}{15:0:0}{W122:25:0}{N37:46:0}
@@ -2862,7 +2863,7 @@
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesPackage{horoscop}%
-   [2008/08/30 v0.91 Astrological chart macros by Matthew Skala]
+   [2013/05/16 v0.92 Astrological chart macros by Matthew Skala]
 %    \end{macrocode}
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4706,7 +4707,7 @@
 %    \end{macrocode}
 %
 % \begin{macro}{\horo@readdata}
-% Read a line from the data file; flag a calculation failure it there's
+% Read a line from the data file; flag a calculation failure if there's
 % nothing to read.  The result goes into |\horo@data|.  The line of data is
 % expected to be a decimal number with possible leading or trailing spaces,
 % which we trim off before saving it.
@@ -5152,22 +5153,22 @@
 % Some chart types need to draw curves that are neither radial line segments
 % nor origin-centric circular arcs.  For that matter, they need
 % origin-centric circular arcs, which are non-trivial.  The curves defined
-% here are quadratic splines with two endpoints specified in polar coordinates
-% and a single control point defined by this vector formula:
+% here are cubic B\'{e}zier splines with two endpoints specified in polar
+% coordinates and two control points both set to the value of this vector
+% formula:
 % \[
 %    \mathbf{c} = 2\mathbf{m} - \frac{1}{2}(\mathbf{a}+\mathbf{b})
 % \]
-% where $\mathbf{c}$ is the control point, $\mathbf{a}$ and $\mathbf{b}$ are the
-% endpoints, and $\mathbf{m}$ is their \emph{polar} midpoint: the point whose
-% $r$ coordinate is the average of the $r$ coordinates of $\mathbf{a}$ and
-% $\mathbf{b}$, and whose $\theta$ coordinate is midway between theirs, going
-% the shorter direction around the circle.
+% where $\mathbf{c}$ is the control point, $\mathbf{a}$ and $\mathbf{b}$ are
+% the endpoints, and $\mathbf{m}$ is their \emph{polar} midpoint: the point
+% whose $r$ coordinate is the average of the $r$ coordinates of $\mathbf{a}$
+% and $\mathbf{b}$, and whose $\theta$ coordinate is midway between theirs,
+% going the shorter direction around the circle.
 %
 % This formula was derived by educated trial and error.  If the endpoints
-% happen to have the
-% same $r$, it is a reasonable approximation of the origin-centric
-% arc as long as they're within about 30\horodegrees\ of each other, and
-% it looks halfway acceptable even at larger distances. 
+% happen to have the same $r$, it is a reasonable approximation of the
+% origin-centric arc as long as they're within about 30\horodegrees\ of each
+% other, and it looks halfway acceptable even at larger distances. 
 % Interesting special effects are obtained if the $r$ values do not match.
 %
 % \begin{macro}{\horoputcurve}
@@ -5200,7 +5201,7 @@
 %    \end{macrocode}
 %
 % Compute the polar-coordinate midpoint.  Radius is simple average, but
-% angle must go through |\horo@midpoint| to handle cases like warapping
+% angle must go through |\horo@midpoint| to handle cases like wrapping
 % around 360\horodegrees.
 %    \begin{macrocode}
     \dimen@=\horo@pc@r@ne\p@\relax
@@ -5218,24 +5219,24 @@
 %
 % Compute the control point, which basically means moving the control point
 % away from the polar midpoint by an amount equal to and opposite from the
-% difference between it and the Cartesian midpoint.  Recall that 
+% difference between it and the Cartesian midpoint.  Recall that
 % \textsf{epic}'s spline curves are based on the Chaikin technique of
-% cutting corners off a polyline until it looks like a smooth curve.
-% With the switch to \textsf{pict2e} we are no longer using classic
-% \LaTeX\ splines, but the underlying concept of a quadratic spline should
-% remain the same.  The
-% initial polyline looks like two sides of a triangle, with the remaining
-% side being the segment directly connecting the two endpoints.  If we place
-% the control point \emph{twice} as far away from that direct segment as the
-% polar midpoint would be, then after we're finished cutting corners the
-% middle of the remaining curve should end up pretty close to half its
-% original (control point) distance from the Cartesian midpoint, and
-% \emph{the same distance} as the polar midpoint would be---thus
-% passing through the polar midpoint.  We want it to pass through the polar
-% midpoint at least in the important special case of drawing an
-% origin-centred arc.  That's the education behind the educated guess of the
-% control point formula.  In actual fact it doesn't work perfectly because
-% the cut ratio isn't right, but the result looks good anyway.
+% cutting corners off a polyline until it looks like a smooth curve.  With
+% the switch to \textsf{pict2e} we are no longer using classic \LaTeX\
+% splines, but the underlying concept of a cubic spline should remain
+% the same.  The initial polyline looks like two sides of a triangle, with
+% the remaining side being the segment directly connecting the two
+% endpoints.  If we place the control point \emph{twice} as far away from
+% that direct segment as the polar midpoint would be, then after we're
+% finished cutting corners the middle of the remaining curve should end up
+% pretty close to half its original (control point) distance from the
+% Cartesian midpoint, and \emph{the same distance} as the polar midpoint
+% would be---thus passing through the polar midpoint.  We want it to pass
+% through the polar midpoint at least in the important special case of
+% drawing an origin-centred arc.  That's the education behind the educated
+% guess of the control point formula.  In actual fact it doesn't work
+% perfectly because the cut ratio isn't right, but the result looks good
+% anyway.
 %    \begin{macrocode}
     \multiply\horo@dim@x by -4\relax
     \advance\horo@dim@x by \horo@dim@xa\relax
@@ -5248,9 +5249,10 @@
 %    \end{macrocode}
 %
 % With all the relevant coordinates computed, plot the actual curve and end.
-% \changes{v0.92}{2013/05/15}{Replace \cs{spline} with \cs{qbezier}}
+% \changes{v0.92}{2013/05/16}{Replace \cs{spline} with \cs{cbezier}}
 %    \begin{macrocode}
-    \qbezier(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
+    \cbezier(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
+            (\TG@rem@pt\horo@dim@x,\TG@rem@pt\horo@dim@y)%
             (\TG@rem@pt\horo@dim@x,\TG@rem@pt\horo@dim@y)%
             (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
   \endgroup
