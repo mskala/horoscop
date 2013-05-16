@@ -19,7 +19,6 @@
 \documentclass{ltxdoc}
 
 \usepackage{color}
-\usepackage{epic}
 \usepackage{fmtcount}
 \usepackage{graphicx}
 \usepackage[scaled=0.9]{helvet}
@@ -262,18 +261,17 @@
 %
 % \subsection{Chart Graphics}
 %
+% \changes{v0.92}{2013/05/15}{Use \textsf{pict2e} for graphics support}
 % Typesetting astrological charts (which are distinct from symbols---you
 % could use symbols in text without any charts, or conceivably charts
-% without symbols) requires \textsf{epic}, \textsf{eepic}, and
-% \textsf{trig}; all these \emph{are} typically included in \LaTeX\
-% installations by default.  Use of \textsf{eepic} has an important
-% consequence: you can't typeset charts properly with \textsf{pdflatex}
-% because it doesn't support the ``specials'' \textsf{eepic} uses to draw
-% large circles and arbitrary-slope lines.  The current workaround is to use
-% \textsf{dvips} and translate the resulting file to PDF.  A future version
-% may be able to work with \textsf{pdflatex} more directly, but it won't be
-% trivial; large circles and arbitrary-slope lines really are absolutely
-% necessary for most wheel chart designs.
+% without symbols) requires \textsf{pict2e} and
+% \textsf{trig}; these \emph{are} typically included in \LaTeX\
+% installations by default.
+% An earlier version (predating the existence of \textsf{pict2e}) required
+% \textsf{eepic}, and consequently \textsf{latex}/\textsf{dvips}, not
+% \textsf{pdflatex}.  But the long-promised \textsf{pict2e} package finally
+% exists, allowing large circles and arbitrary-slope lines in the |picture|
+% environment in many different engines, and that's a nicer solution.
 %
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -2201,11 +2199,13 @@
 % |swetest| command-line option(s)
 % for calculating the object's position.  For Eris, those are |-ps| (planet
 % to calculate is one of the ``small'' ones to be designated by number) and
-% |-xs999001| (planet number 999001\footnote{For Swiss Ephemeris version
-% 1.70 as installed on the author's system; in some future version they will
-% probably switch to using the MPC number 136199 now that one has been
-% assigned.}).  Other asteroid-like objects would be designated similarly;
-% see the |swetest| documentation for how to select other kinds of objects.
+% \changes{v0.92}{2013/05/15}{Use official MPC number for Eris}
+% |-xs136199| (planet number 136199\footnote{For current versions of
+% Swiss Ephemeris.  Some versions published between the discovery of the
+% planet and the assignment of its official number referred to it as object
+% number 999001.}).  Other asteroid-like objects would be designated
+% similarly; see the |swetest| documentation for how to select other kinds
+% of objects.
 %
 % \begin{verbatim}
 % \newcommand{\horoErisSEOpt}{-ps -xs136199}
@@ -2237,7 +2237,7 @@
 %
 % \begin{verbatim}
 % \horocalcparms{1968}{3}{28}{18:25:0}{E174:46:0}{S36:52:0}
-% \newcommand{\horoErisSEOpt}{-ps -xs999001}
+% \newcommand{\horoErisSEOpt}{-ps -xs136199}
 % \newcommand{\ErisSymbol}{X}
 % \renewcommand{\horoobjects}{Sun,Moon,Mercury,Venus,%
 %   Mars,Jupiter,Saturn,Uranus,Neptune,Pluto,Eris}
@@ -3003,8 +3003,7 @@
   \let\horost@rSquare\Square
 \fi
 \ifhoro@wheels
-  \RequirePackage{epic}
-  \RequirePackage{eepic}
+  \RequirePackage{pict2e}
   \RequirePackage{trig}
 \fi
 %    \end{macrocode}
@@ -5041,6 +5040,7 @@
 % $(\mathit{length},\theta)$ as a vector and do the addition on the
 % Cartesian side, because that saves some shuffling between macro
 % definitions and dimension registers.
+% \changes{v0.92}{2013/05/15}{Replace \cs{drawline} with \cs{Line}}
 %    \begin{macrocode}
 \def\horoputradial#1#2#3{%
   \begingroup
@@ -5049,8 +5049,8 @@
     \horo@polarconvert\p@two\p@three\horo@dim@xb\horo@dim@yb
     \advance\horo@dim@xb by\horo@dim@xa
     \advance\horo@dim@yb by\horo@dim@ya
-    \drawline(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
-             (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
+    \Line(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
+         (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
   \endgroup
 }
 %    \end{macrocode}
@@ -5059,14 +5059,15 @@
 % \begin{macro}{\horoputline}
 % This is the more general line-segment primitive: it takes two $(r,\theta)$
 % pairs and draws a line between them.
+% \changes{v0.92}{2013/05/15}{Replace \cs{drawline} with \cs{Line}}
 %    \begin{macrocode}
 \def\horoputline#1#2#3#4{%
   \begingroup
     \edef\p@one{#1}\edef\p@two{#2}\edef\p@three{#3}\edef\p@four{#4}%
     \horo@polarconvert\p@one\p@two\horo@dim@xa\horo@dim@ya
     \horo@polarconvert\p@three\p@four\horo@dim@xb\horo@dim@yb
-    \drawline(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
-             (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
+    \Line(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
+         (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
   \endgroup
 }
 %    \end{macrocode}
@@ -5133,9 +5134,10 @@
     \advance\horo@dim@ya by\horo@dim@y\relax
 %    \end{macrocode}
 %
-% Plot the arrowhead, using the documented-as-dangerous |\blacken| command.
+% Plot the arrowhead, using \textsf{pict2e}'s |\polygon*| macro.
+% \changes{v0.92}{2013/05/15}{Replace \cs{blacken}\cs{path} with \cs{polygon*}}
 %    \begin{macrocode}
-    \blacken\path%
+    \polygon*%
       (\TG@rem@pt\horo@dim@x,\TG@rem@pt\horo@dim@y)%
       (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
       (\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
@@ -5150,7 +5152,7 @@
 % Some chart types need to draw curves that are neither radial line segments
 % nor origin-centric circular arcs.  For that matter, they need
 % origin-centric circular arcs, which are non-trivial.  The curves defined
-% here are \LaTeX\ splines with two endpoints specified in polar coordinates
+% here are quadratic splines with two endpoints specified in polar coordinates
 % and a single control point defined by this vector formula:
 % \[
 %    \mathbf{c} = 2\mathbf{m} - \frac{1}{2}(\mathbf{a}+\mathbf{b})
@@ -5217,8 +5219,11 @@
 % Compute the control point, which basically means moving the control point
 % away from the polar midpoint by an amount equal to and opposite from the
 % difference between it and the Cartesian midpoint.  Recall that 
-% \textsf{eepic}'s spline curves are based on the Chaikin technique of
-% cutting corners off a polyline until it looks like a smooth curve.  The
+% \textsf{epic}'s spline curves are based on the Chaikin technique of
+% cutting corners off a polyline until it looks like a smooth curve.
+% With the switch to \textsf{pict2e} we are no longer using classic
+% \LaTeX\ splines, but the underlying concept of a quadratic spline should
+% remain the same.  The
 % initial polyline looks like two sides of a triangle, with the remaining
 % side being the segment directly connecting the two endpoints.  If we place
 % the control point \emph{twice} as far away from that direct segment as the
@@ -5243,10 +5248,11 @@
 %    \end{macrocode}
 %
 % With all the relevant coordinates computed, plot the actual curve and end.
+% \changes{v0.92}{2013/05/15}{Replace \cs{spline} with \cs{qbezier}}
 %    \begin{macrocode}
-    \spline(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
-           (\TG@rem@pt\horo@dim@x,\TG@rem@pt\horo@dim@y)%
-           (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
+    \qbezier(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
+            (\TG@rem@pt\horo@dim@x,\TG@rem@pt\horo@dim@y)%
+            (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
   \endgroup
 }
 %    \end{macrocode}
@@ -5914,11 +5920,12 @@
 %
 % Convert endpoints to polar and draw the line segment representing the
 % aspect:
+% \changes{v0.92}{2013/05/15}{Replace \cs{drawline} with \cs{Line}}
 %    \begin{macrocode}
     \horo@polarconvert\p@one\p@two\horo@dim@xa\horo@dim@ya
     \horo@polarconvert\p@one\p@three\horo@dim@xb\horo@dim@yb
-    \drawline(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
-             (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
+    \Line(\TG@rem@pt\horo@dim@xa,\TG@rem@pt\horo@dim@ya)%
+         (\TG@rem@pt\horo@dim@xb,\TG@rem@pt\horo@dim@yb)%
 %    \end{macrocode}
 %
 % Compute the midpoint by doing an average on the Cartesian coordinates:
@@ -6867,12 +6874,13 @@
 % charts, but costs little to support) then typeset it.  Otherwise, just
 % make a little cross in the centre of the dial so that the Cosmobiologists
 % know where to place their angle-finding instruments.
+% \changes{v0.92}{2013/05/15}{Replace \cs{drawline} with \cs{Line}}
 %    \begin{macrocode}
   \ifhoroaspectweb
     \horoautoaspects{#1}%
   \else
-    \drawline(-1,0)(1,0)%
-    \drawline(0,-1)(0,1)%
+    \Line(-1,0)(1,0)%
+    \Line(0,-1)(0,1)%
   \fi
 }
 %    \end{macrocode}
@@ -7042,6 +7050,7 @@
 %
 % At this point DPos=Pos.  Draw all the radials that go in true positions:
 % two each for objects and cusps, and two more bold ones for the cusps.
+% \changes{v0.92}{2013/05/15}{Replace \cs{allinethickness} with \cs{thicklines}\cs{linethickness}}
 %    \begin{macrocode}
   \ifhorocalculated
     \horoputradials{\horoobjects}{41}{2}%
@@ -7052,7 +7061,7 @@
     \fi
     \ifhoroboldangles
       \begingroup
-        \allinethickness{\horoanglecuspwidth}%
+        \thicklines\linethickness{\horoanglecuspwidth}%
         \horoputradials{\horoangularcusps}{21}{1}%
         \ifhoroanglearrows
           \horoputradials{\horoangularcusps}{42}{0.5}%
@@ -7075,6 +7084,7 @@
 % Now draw the linework that goes in, or uses, adjusted positions.  That
 % includes connecting curves for objects and cusps, and the main chunks
 % of the cusps themselves.
+% \changes{v0.92}{2013/05/15}{Replace \cs{allinethickness} with \cs{thicklines}\cs{linethickness}}
 %    \begin{macrocode}
   \ifhorocalculated
     \horoforeach{\horoobjects}{\horoconncurve{41}{40}}%
@@ -7085,7 +7095,7 @@
       \horoputradials{\horocusps}{22}{20}%
     \fi
     \ifhoroboldangles
-      \allinethickness{\horoanglecuspwidth}%
+      \thicklines\linethickness{\horoanglecuspwidth}%
       \horoforeach{\horoangularcusps}{\horoconncurve{42}{42}}%
       \horoforeach{\horoangularcusps}{\horoconncurve{22}{22}}%
       \horoputradials{\horoangularcusps}{22}{20}%

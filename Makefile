@@ -15,5 +15,11 @@ horoscop.dvi: horoscop.dtx horoscop.sty
 	makeindex -s gind.ist -o horoscop.ind horoscop.idx
 	latex --shell-escape horoscop.dtx
 
-horoscop.pdf: horoscop.ps
-	ps2pdf horoscop.ps
+# horoscop.pdf: horoscop.ps
+# 	ps2pdf horoscop.ps
+
+horoscop.pdf: horoscop.dtx horoscop.sty
+	pdflatex --shell-escape horoscop.dtx
+	makeindex -s gglo.ist -o horoscop.gls horoscop.glo
+	makeindex -s gind.ist -o horoscop.ind horoscop.idx
+	pdflatex --shell-escape horoscop.dtx
